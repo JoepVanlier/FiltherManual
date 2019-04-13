@@ -1,6 +1,6 @@
 # Filther User Manual v0.2
 
-Filther wouldn't be here without the tireless work of many individuals, to who I own thanks! While some filters and effects were modelled by me, many also came from literature sources.
+Filther wouldn't be here without the work of many individuals, to whom I own thanks! While some filters and effects were modelled by me, many also came from literature sources.
 
 Filter attribution:
 - LP Diode Ladder ported from code by Dominique Wurtz (MIT Licensed), Copyright (c) 2012 Dominique Wurtz (www.blaukraut.info)
@@ -14,7 +14,7 @@ Filter attribution:
 
 Special thanks also goes out to everyone who has reported bugs and provided ideas to me. This list includes, but it is not limited to:
 Eliseat, Bri1, FoxAsteria, EpicSounds, TonE, daxliniere, JamesPeters, kneipp123, 
-jrengmusic, mawi, vdubreeze, Sju, nitsuj.
+jrengmusic, mawi, vdubreeze, Sju, nitsuj and of course my wife!
 
 And of course Cockos Inc. for developing JSFX.
 
