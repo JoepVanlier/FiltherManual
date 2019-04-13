@@ -123,7 +123,7 @@ As shown in the image, the available modulators are:
 
 Filters can be chosen from the dropdown menu denoted by _Filter Type_ in the figure. Filther contains a large variety of filters to choose from, each with their own advantages and drawbacks. Most of the filters behave non-ideal and are intended for creative purposes rather than linearity.
 
-![Filtertypes](Filters.png)
+![Filters](Filters.png)
 
 _Note: Not all filters are stable for all combinations of resonance and waveshaping. Using very sharp transitions in the spline waveshaper can result in filter instability for the filters where waveshaping is part of the filter. Filters which are more dangerous than others are marked in red._
 
@@ -156,7 +156,7 @@ Pitch following is similar to keytracking in the sense that it attempts to follo
 ### Modulation filters
 Modulation filters are special in the sense that they require accurate tuning to sound good. To help tune modulation filters, a few helper lines are drawn on the spectrum. For best results, try and match up the harmonics of the modulator with the harmonics of the input sound while having keytracking enabled.
 
-![PitchDetect](Harmonics.png)
+![Harmonics](Harmonics.png)
 
 ### Routing
 
@@ -183,7 +183,7 @@ Dynamics can be monitored in the dynamics window (shown on the left). Here you w
 
 Enabling the button *SHAPER* in the _dynamics_ section to enable modulation of the waveshaper by the dynamic variable. When enabled, Filther will interpolate between the non-waveshaped and waveshaped voltage input/output characteristic (1 being the fully waveshaped version). 
 
-![Routing](Dynamics.png)
+![Dynamics](Dynamics.png)
 
  Depending on which mode you are currently using, the vertical position of the dynamic variable is determined by different factors. Additionally, you will also be presented with different _Dynamics_ panels depending on the mode you are in. Let's go over the different modes:
 
@@ -209,7 +209,7 @@ _Note: All of the sliders involving time have optional multipliers, which can be
 ## LFO
 Filter sports a Low Frequency Oscillator (LFO) for modulating other parameters. Most LFO variables are self explanatory. When enabled, the *MIDI* button makes sure that any incoming MIDI note triggers a reset of the LFO. *Tempo* changes the time axis to a tempo synchronized axis and *Center* centers the LFO around the slider value, rather than setting its maximal extent to the slider value (without it, it moves in the direction of the modulation range).
 
-![Routing](LFO.png)
+![LFO](LFO.png)
 
 Whereas all other dynamic modulators in Filther (envelopes and dynamics) are averaged to work out to one dynamic modulation, the LFO is treated separately. The modulation strength of the LFO is set in the LFO panel with the parameter *Modulation Range*. While it will still be proportional to the range set on the modulation target, there is an extra level of control with respect to how much modulation is happening at any given time.
 
@@ -218,14 +218,14 @@ One last feature which may be important for some filter/LFO combo's is LFO smoot
 ## Envelopes
 Envelopes can be used to add some extra dynamics to your sounds. They can be used as modulation sources alongside other sources. When _TRIG_ is enabled, an envelope will restart playback whenever a MIDI note is pressed. Once it gets to the _hold loop_ it will loop until the MIDI note is released. Note that when _TRIG_ is not active, the envelope will loop indefinitely and can be used as an alternative, more customizable LFO.
 
-![Routing](Envelopes.png)
+![Envelopes](Envelopes.png)
 
 To add nodes to the envelope click the curve with the **right mouse button**. To remove nodes, click them with the **right mouse button**. Nodes can be dragged with the **left mouse button**. The **scrollwheel** can be used to zoom into the envelope, while **dragging** results in panning over the envelope. The duration of the envelope can be set by **dragging** the bottom slider.
 
 ## Feedback section
 There is an additional feedback section, which can be activated.  Feedback can be used to fatten up filters and in some cases regain control of the resonance. If you want some fatness/resonance fighting, _keep the delay firmly placed at zero_. The feedback delay chain has the exact opposite polarity of the resonance in most chains, so in this mode, it will fight with the resonance to sort of choke in on itself. This can make the resonance less ringey, more chunky and a lot more pleasant to listen to. For a good example of this effect, set up a diode ladder or ms-20 with a lot of resonance. Then dial in the feedback with a feedback time of zero. You'll notice that the screechyness of the resonance goes down, giving way to a more chunky growliness.
 
-![Routing](Feedback.png)
+![Feedback](Feedback.png)
 
 For phasey effects, use feedback with larger delays. Note however that then you're in the danger zone, because once resonance starts boosting resonance, things get real dicey. I would always recommend playing with this only if you have Automatic Gain Control (AGC) on.
 
@@ -246,7 +246,7 @@ _Note: Some of the filters in filther require a minimal amount of oversampling f
 _Note: Both FIR and IIR upsampling/downsampling are provided. Whereas FIR filtering causes less phase distortion, it is more costly._
 
 ## List of filters
-![Filtertypes](Filters.png)
+![FilterList](Filters.png)
 
 Filters are categorized by type, typically starting with the linearized versions of the filters first, followed by the more CPU intensive, but also more interesting, non-linear versions.
 
