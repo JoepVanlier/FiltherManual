@@ -239,7 +239,9 @@ Filther supports oversampling. Oversampling can be useful when an effect introdu
 
 Oversampling runs the waveshaper and simulates the filters at a higher samplerate. Subsequently aliasing is reduced by lowpassing the result before sampling down back to the normal sample rate.
 
-Note that oversampling incurs significantly more CPU and that not all sounds need an oversampling solution. In particular sounds which are mostly concentrated in the low end, with very little presence in the higher frequencies may not need oversampling at all.
+Note that oversampling incurs significantly more CPU and that not all sounds need an oversampling solution. In particular sounds which are mostly concentrated in the low end, with very little presence in the higher frequencies may not need oversampling at all. For basslines, large amounts of oversampling are usually unnecessary and only drive up the CPU cost.
+
+Note that the oversampling filters used in Filther are relatively coarse and may reduce some of the higher frequencies.
 
 _Note: Some of the filters in filther require a minimal amount of oversampling for stability. These filters will always force the oversampling to be where they need it to be._
 
