@@ -41,7 +41,7 @@ The manual is built up as follows. First, we go through the basics and guide you
 #### Sliders
 The backbone of Filther is a whole bunch of sliders. They look simple at first, but they have a hidden dark side to them. All of these sliders can be automated and linked up with various modulators in Filther.
 
-![Master](Slider.png)
+![Master](slider.png)
 
 The basic controls are mostly what you'd expect. Sliders can be dragged with the **left mouse button** or adjusted via the **scrollwheel**. More precise motions can be made by holding **CTRL**, **SHIFT** or both. **Double click** resets a slider. 
 
