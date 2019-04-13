@@ -1,4 +1,22 @@
-# Filther User Manual v0.1
+# Filther User Manual v0.2
+
+Filther wouldn't be here without the tireless work of many individuals, to who I own thanks! While some filters and effects were modelled by me, many also came from literature sources.
+
+Filter attribution:
+- LP Diode Ladder ported from code by Dominique Wurtz (MIT Licensed), Copyright (c) 2012 Dominique Wurtz (www.blaukraut.info)
+- Karlsen Fast Ladder III ported from code by Ove Hy Karlsen, Copyright (c) Ove Hy Karlsen
+- Weeping Demon emulations ported from code by C. Gnegy (https://ccrma.stanford.edu/~chet/)
+- King of Tone, based on a paper by Huang et al.
+- Crybaby, based on paper: M. Holters et al, "Physical modelling of a wah-wah effect pedal as a case study for application of the nodal DK method to circuits with variable parts.", Proc. Digital Audio Effects (DAFx-11), Paris, France (2011): 31-35
+- State Variable ZDF Filters based on a whitepaper by A. Simpler et al. (https://cytomic.com).
+- Moog filter based the paper: Paschou, E., et al. "Modeling and measuring a Moog voltage-controlled filter." 2017 Asia-Pacific Signal and Information Processing Association Annual Summit and Conference (APSIPA ASC). IEEE, 2017.
+- Wavefolders were based on Esqueda et al., "Virtual analog models of the Lockhart and Serge wavefolders." Applied Sciences 7.12 (2017): 1328.
+
+Special thanks also goes out to everyone who has reported bugs and provided ideas to me. This list includes, but it is not limited to:
+Eliseat, Bri1, FoxAsteria, EpicSounds, TonE, daxliniere, JamesPeters, kneipp123, 
+jrengmusic, mawi, vdubreeze, Sju, nitsuj.
+
+And of course Cockos Inc. for developing JSFX.
 
 ## About Filther
 Before you lies the manual to my latest experiment: _Filther_. While its interface can admittedly look daunting at first, you'd be surprised at the flexibility at your fingertips. So, to try and convince you that the effort of getting into this baby is worth it (despite its somewhat high CPU cost), here's a rundown of what it can offer:
@@ -103,7 +121,6 @@ As shown in the image, the available modulators are:
 - Dyn: Modulate setting(s) by Dynamics.
 - LFO: Modulate setting(s) by LFO.
 
-
 Filters can be chosen from the dropdown menu denoted by _Filter Type_ in the figure. Filther contains a large variety of filters to choose from, each with their own advantages and drawbacks. Most of the filters behave non-ideal and are intended for creative purposes rather than linearity.
 
 ![Filtertypes](Filters.png)
@@ -187,7 +204,7 @@ In these modes, the dynamic curve is driven by MIDI input signals. Whereas *MIDI
 #### Modwheel mode
 In this mode the dynamic variable is directly controlled via the modulation wheel. Since modulation wheel data is rather coarse, smoothing options become available once this mode is selected. One is linear, the other is exponential.
 
-_Note: All of the sliders involving time have multipliers, which can be set for longer attack, hold and decay times._
+_Note: All of the sliders involving time have optional multipliers, which can be set for longer attack, hold and decay times._
 
 ## LFO
 Filter sports a Low Frequency Oscillator (LFO) for modulating other parameters. Most LFO variables are self explanatory. When enabled, the *MIDI* button makes sure that any incoming MIDI note triggers a reset of the LFO. *Tempo* changes the time axis to a tempo synchronized axis and *Center* centers the LFO around the slider value, rather than setting its maximal extent to the slider value (without it, it moves in the direction of the modulation range).
@@ -227,6 +244,109 @@ Note that oversampling incurs significantly more CPU and that not all sounds nee
 _Note: Some of the filters in filther require a minimal amount of oversampling for stability. These filters will always force the oversampling to be where they need it to be._
 
 _Note: Both FIR and IIR upsampling/downsampling are provided. Whereas FIR filtering causes less phase distortion, it is more costly._
+
+## List of filters
+![Filtertypes](Filters.png)
+
+Filters are categorized by type, typically starting with the linearized versions of the filters first, followed by the more CPU intensive, but also more interesting, non-linear versions.
+
+
+| Type  | Filter             | Description |
+| ----- | ------------------ | ----------- |
+| LP    | Linear SVF         | 2-pole zero delay feedback filter based on Andy Simper's (Cytomic) SVF filter algorithms. This is the go-to filter if you want a transparent non-saturating lowpass. |
+| LP    | RC-C               | State space filter. This filter does not use internal waveshaping and the output of the filter is waveshaped instead. Prone to resonating quite fiercely. |
+| LP    | Kr0g MS20 linear   | A linearized version of the 2-pole MS-20 emulation. Sounds relatively transparent. Note that this filter doesn't saturate or self-oscillate in the way the non-linear emulation would. The computational cost is much lower however. |
+| LP    | SSM 2020 linear    | Linearized 4-pole SSM2020 emulation. Note that this filter doesn't saturate or self-oscillate in the way the non-linear emulation would. The computational cost is much lower however. The waveshaper is applied to the output and can be used to tame or excite the output. |
+| LP    | CEM 3389 linear    | Linearized 4-pole CEM 3389 emulation. Note that this filter doesn't saturate or self-oscillate in the way the non-linear emulation does. The computational cost is much lower however. The waveshaper is applied to the output. |
+| LP    | Waspey linear      | Linearized approximation of the waspey. |
+| LP    | Kr0g MS20 NL ][    | MS-20 emulation with non-linearity. This thing sounds great when overdriven, especially without waveshaper. The non-linear elements consist of integrators that saturate at each stage, and a nice diode clipper in the feedback. It can sound raw, yet clean, if that makes sense. |
+| LP    | Kr0g MS20 NL       | MS-20 emulation with non-linearity. This thing sounds great when overdriven, especially without waveshaper. The non-linear elements consist of integrators that saturate at each stage, and a nice diode clipper in the feedback. It can sound raw, yet clean, if that makes sense. This version contains an atan instead of the correct tanh term in the integrator and the maximal frequency doesn't go as high, but it's sound was also pleasant so I decided to keep it as an alternative option. |
+| LP    | Diode Ladder       | This filter was based on a model by Dominique Wurtz which modelled the 303 diode ladder. The only modification is that rather than input clipping, the waveshaper is used. This filter pairs well with a high resonance and large negative feedback. It also loves being driven. |
+| LP    | Expensive Moog     | This filter is based on the paper Modeling and measuring a Moog voltage-controlled filter by Paschou et al. This filter requires 2x upsampling to remain stable. This version is more stable than the cheap version, but still be careful. High gain with high resonance can lead to extreme resonance peaks. |
+| LP    | Cheap Moog         | Based on the paper Modeling and measuring a Moog voltage-controlled filter by Paschou et al. Note that at a minimum, this filter requires 2x upsampling to remain stable. Higher values will bring in higher quality as the non-linearity makes it sensitive to aliasing problems. This version does not correctly compute the Jacobian and omits several terms which are estimated to be small, which makes it faster, but more unstable. This can lead to stability problems with high frequencies, but works fine for low frequency inputs. |
+| LP    | SVF w/shaped res   | State Variable Filter that lowpasses the signal twice. Once with and once without resonance. Subsequently it waveshapes the version with resonance minus the version without and adds the waveshaped resonance to the no resonance lowpass mix. Gives a lot of control over the bite of the resonance. |
+| LP    | Rezzy              | Rezzy came about after an afternoon of screwing around with non-linearities in the feedback mechanism of the MS-20 lowpass filter. It can sound quite bitey and raw. At high resonances, problematic overtones can occur. | 
+| LP    | SSM 2020 NL        | 4-pole SSM-2020 emulation with non-linearity (tanh) in the model. The waveshaper is applied to the output. Note that at high resonances, this one can go slightly out of tune because of the slew rate in the feedback. |
+| LP    | SSM 2020 NL (app)  | 4-pole SSM-2020 emulation with non-linearity (cheaper tanh) in the model. The waveshaper is applied to the output and can be used to tame the output. Note that at high resonances, this one can go slightly out of tune because of the slew rate in the feedback. |
+| LP    | Combed Resonance   | Signal is lowpassed twice with and without resonance. Resonance is lifted by differencing the signal, this resonance is mixed with a delayed copy of itself before being added to the signal. Waveshaper is applied after the filter. The result is a resonant filter with some subtle hints of comb filtering. |
+| LP    | CEM 3389 NL        | 4-pole CEM 3389 emulation with non-linearity (tanh) in the model. The waveshaper is applied to the output and can be used to tame or excite the output. |
+| LP    | Voodoo             | This one is a meanie. It filters the signal with and without resonance, computes the difference, amplifies it, saturates it and then adds it to a moving average that gets added to the signal. The result is then waveshaped. Yum. |
+| LP    | LP Junk            | This one is fickle. It filters the signal with and without resonance, computes the difference, amplifies it, saturates it and then adds it back to the signal. The result is then waveshaped. Yum. |
+| LP    | Waspey NL          | CPU intensive approximation of the wasp filter. |
+| LP    | Karlsen Ladder III | This filter is based on a 303 diode ladder. The filter uses the waveshaper as non/ideal part rather than just clipping. Note that this filter doesn't completely maintain its tone when using different levels of supersampling. |
+| LP    | Karlsen Ladder IIIs| This filter combines the 303 diode ladder filter with a fixed shelf filter. The filter uses the waveshaper as non/ideal part rather than just clipping. Note that this filter doesn't completely maintain its tone when using different levels of supersampling. |
+| LP    | Waveshaped LP      | This filter consists of two first order low-pass filters. The difference in filter outputs is distorted through the waveshaper and fed back to give a resonant peak. The output is then subsequently distorted again. This filter can get very mean depending on the waveshaping curve. Be careful! Note that this filter forces oversampling to be at least 2x. |
+| LP    | FM Feedback        | Non-linear MS-20 but with the feedback signal FM modulated. The result is that it behaves almost like a shelf filter. |
+| LP    | FM-ish 2           | This filter uses the input signal as modulation source for the cutoff of a linearized MS-20. Can be quite unpredictable. | 
+| LP    | Narsty             | This is a relatively nasty and experimental filter. It's a combination of three filters with varying interacting resonances. No guarantees that this thing won´t blow up in your face. Exclusively meant for basses. Note that one rather undesirable property of this filter is that it does not maintain its character when changing the sampling rate. |
+| LP    | Broken feedback    | A circuit bended version of the non-linear Waspey with a modification in the feedback path. | 
+| LP    | Everything is a saw| Weird filter that tends to convert most things to saw like waveforms. Based on biasing the wasp emulation severely. It can work pretty nicely with basses and high resonance, but be careful, it is pretty unpredictable. |
+|||
+| BP    | Linear SVF         | Zero delay feedback filter based on Andy Simper's (Cytomic) SVF filter algorithms. Good for transparent filtering. |
+| BP    | Kr0g MS20 linear   | A linearized version of the 2-pole MS-20 emulation. Sounds relatively transparent. Note that this filter doesn't saturate or self-oscillate in the way the non-linear emulation would. The computational cost is much lower however. |
+| BP    | Kr0g MS20 NL ][    | MS-20 emulation with non-linearity. This thing sounds great when overdriven, especially without waveshaper. The non-linear elements consist of integrators that saturate at each stage, and a nice diode clipper in the feedback. It can sound raw, yet clean, if that makes sense. |
+| BP    | Kr0g MS20 NL       | MS-20 emulation with non-linearity. This thing sounds great when overdriven, especially without waveshaper. The non-linear elements consist of integrators that saturate at each stage, and a nice diode clipper in the feedback. It can sound raw, yet clean, if that makes sense. This version contains an atan instead of the correct tanh term in the integrator and the maximal frequency doesn't go as high, but it's sound was also pleasant so I decided to keep it as an alternative option. |
+| BP    | Combed Resonance   | Signal is lowpassed twice with and without resonance. Resonance is lifted by differencing the signal, this resonance is amplified, saturated and mixed with a delayed copy of itself before being added to the signal. Waveshaper is applied after the filter. The result is a resonant filter with some subtle hints of comb filtering. |
+| BP    | Waspey NL          | CPU intensive approximation of the wasp filter. |
+| BP    | Waveshaped BP      | This is a waveshaped bandpass filter. Sort of. The difference in filter outputs is distorted through the waveshaper and fed back to give a resonant peak. The output is then subsequently distorted again. Stability can be enhanced by oversampling. Note that this filter forces oversampling to be at least 2x. |
+|||
+| HP    | Linear SVF         | Zero delay feedback filter based on Andy Simper's (Cytomic) SVF filter algorithms. Good for transparent filtering. |
+| HP    | Kr0g MS20 linear   | A linearized version of the MS-20 emulation. Sounds relatively transparent. Note that this filter doesn't saturate or self-oscillate in the way the non-linear emulation would. The computational cost is much lower however. |
+| HP    | Kr0g MS20 NL ][    | MS-20 emulation with non-linearity. This thing sounds great when overdriven, especially without waveshaper. The non-linear elements consist of integrators that saturate at each stage, and a nice diode clipper in the feedback. It can sound raw, yet clean, if that makes sense. |
+| HP    | Kr0g MS20 NL       | MS-20 emulation with non-linearity. This thing sounds great when overdriven, especially without waveshaper. The non-linear elements consist of integrators that saturate at each stage, and a nice diode clipper in the feedback. It can sound raw, yet clean, if that makes sense. This version contains an atan instead of the correct tanh term in the integrator and the maximal frequency doesn't go as high, but it's sound was also pleasant so I decided to keep it as an alternative option. |
+| HP    | Waveshaped HP      | This is a waveshaped highpass filter. The difference in filter outputs is distorted through the waveshaper and fed back to give a resonant peak. The output is then subsequently distorted again. Stability can be enhanced by oversampling. Note that this filter forces oversampling to be at least 2x. |
+| BP    | BP Phone           | High order elliptical filter to bandpass a specific frequency region. Cutoff regulates the level of non-linearity. Resonance regulates the downsampling. Note that this filter only works properly for no oversampling and x2 oversampling. |
+|||
+| Notch | Linear SVF         | Zero delay feedback filter based on Andy Simper's (Cytomic) SVF filter algorithms. Good for transparent filtering. |
+| Peak  | Linear SVF         | Zero delay feedback filter based on Andy Simper's (Cytomic) SVF filter algorithms. Good for transparent filtering. |
+| Notch | Linear RBJ         | Cookbook Notch filter. |
+| Noise | Muck               | Very subtle effect which only adds a tiny bit of multiplicative noise. Only audible on pure tones such as sine waves or triangles. |
+|||
+| Wah   | Crybaby            | Emulation of a wah-wah filter based on a paper by M. Holters, this one took quite some doing to get to work. It's heavy on the CPU, but sounds pretty authentic. |
+| Wah   | Crybaby high       | Emulation of a wah-wah filter based on a paper by M. Holters, this one took quite some doing to get to work. It's heavy on the CPU, but sounds pretty authentic. This one deliberately uses an incorrect sampling rate to obtain a higher pitched sound. |
+| Wah   | Crybaby low        | Emulation of a wah-wah filter based on a paper by M. Holters, this one took quite some doing to get to work. It's heavy on the CPU, but sounds pretty authentic. This one deliberately uses an incorrect sampling rate to obtain a lower pitched sound. |
+| Wah   | Weeping Demon      | This is a model of the weeping demon wah pedal, originally modelled by Chet Gnegy and used with permission. Cutoff controls the wah level. Cutoff controls the pre-highpass. |
+| Wah   | Weeping Demon ][   | This is a model of the weeping demon wah pedal, originally modelled by Chet Gnegy and used with permission. Cutoff controls the wah level. Cutoff controls the pre-highpass. This one is much more bassy and prone to high resonance peaks. |
+| Vowel | Vowel SVF          | This filter uses 3 band pass filters whose cutoff and resonance are chosen to imitate different vowel sounds. |
+| Vowel | Vowel RBJ          | This filter uses 3 band pass filters whose cutoff and resonance are chosen to imitate different vowel sounds. |
+|||
+| Fb    | Phaser (OTA)       | 4 pass phaser based on a series allpass filters with an additional feedback. Note that this one frequently has problem with spline voltage curves. |
+| Fb    | Phaser (FET)       | 4 pass phaser based on a series allpass filters with an additional feedback. |
+| Fb    | Delay Feedbok      | Non-linear phaser like filter with relatively long delays and distortion of difference signal. |
+| Fb    | Phase Mangler      | Experimental |
+| Exp   | Experimental       | This one is an extremely dangerous experimental thingamabob. It contains an allpass phaser, a saturating lowpass, some distortion gibberish and some feedback. Be careful with this thing as it is **highly** unstable, especially when you're combining it with a waveshaper. |
+| Fb    | Comb filter        | Basic comb filter. Set resonance one to have alternating notches between left and right (wide) or zero for mono phasing. Waveshaper is applied before the comb. |
+|||
+| Mod   | Modulon            | Modulon works by modulating the signal with a set frequency and filtering the result. Note that this version has been superseded by the Tuned modulon which can actually be tuned properly. |
+| Mod   | Metallic           | Odd combination of frequency and ring modulation. Highly recommend running this thing over pure tones only (sines, tris and such). |
+| Mod   | Frazzle            | Odd combination of frequency and ring modulation. |
+| Mod   | Tuned modulon      | Modulon works by modulating the signal with a set frequency and filtering the result. Considering that this filter is based on ring modulation, tuning is important. It is also highly recommended to use this filter in combination with keytracking. |
+| Mod   | Tuned modulatrix   | Modulatrix works by modulating the signal with a set frequency and filtering the result. Considering that this filter is based on ring modulation, tuning is important. It is also recommended to use this filter in combination with keytracking. |
+| Mod   | Modulator          | Passes a lowpassed version of the signal and multiplies it with the signal itself. This filter is meant for sounds with limited high frequency content as it will sound awful with rich sounds. |
+|||
+| Dyn   | Athena Exciter     | A subtle exciter. Cutoff dials in the effect, resonance manipulates the dynamics. Athena compresses the signal, and then multiplies the compressed signal with a half-wave rectified copy of its middle band to add extra harmonics to the attack of the signal. While subtle, this can liven up dull muffled synths and drums. |
+|||
+| Dist  | Broken Connection  | While it is a messy filter, it is still one of my favourites. Be careful with this one. It was actually sort of an accident, but it seems pretty stable and pretty unique. It is not invariant under oversampling particularly in the low frequency regions where it likes to lead a life of its own. It's based on the kr0g filter, but including a voltage inversion step in the feedback path. Here low voltage is converted to high voltage and vice versa (not to be confused with a polarity switch!). One problematic aspect of this filter however is that it tends to produce output even when there is no input. |
+| Dist  | Monstro            | A distortion with a vowel filter in the loop. |
+| Dist  | Crunch             | Lowpasses the signal to isolate fundamentals. Distorts lowpassed signal, then highpasses this distorted signal and runs the right channel through a very short delay (widening). The result is fed back into the HP side to get a comb effect over the distortion. Cutoff controls frequency of the HP signal, while resonance controls the gain (more crunch). |
+| Dist  | PWM Potatoes LP    | Emulation of PWM modulation. Can be used to make scrunchy sounds. Cutoff controls cutoff of the post-PWM filter, resonance controls the oversampling of the pulse generator. |
+| Dist  | PWM Potatoes BP    | Emulation of PWM modulation. Can be used to make scrunchy sounds. Cutoff controls cutoff of the post-PWM filter, resonance controls the oversampling of the pulse generator. |
+| Dist  | Bit reduction      | Bitdepth reduction. Cutoff slider reduces the bitdepth. A filter is run before the bitcrusher which splits off the bass, to add it back later after the bitcrusher. Setting the resonance to zero disables this filter. Note: This thing sounds nice paired with some tanh distortion. |
+| Dist  | Sine               | Take the sine of the signal. Cutoff controls frequency, resonance controls mix. Simple, but surprisingly satisfying. Use on basses, not high frequency content. |
+| Dist  | King of Tone       | Modelled after the King of Tone pedal. Warning: This one doesn't respond nicely to live updating the resonance parameter without interia or very sharp gain transitions. It can produce clicks in such scenarios. |
+| Dist  | Wavefolder         | Lockhart wavefolder based on a model by Esqueda et al (2017). Cutoff controls strength, resonance controls bias. Note that these are very sensitive to input gain. |
+| Dist  | Multi-Wavefolder   | A stack of lockhart wavefolders based on a model by Esqueda et al (2017). Cutoff controls strength, resonance controls bias. Note that these are very sensitive to input gain. |
+| Dist  | Serge Wavefolder   | A stack of lockhart wavefolders based on a model by Esqueda et al (2017). Cutoff controls strength, resonance controls bias. Note that these are very sensitive to input gain. |
+|||
+| Pitch | Octaver (Down)     | This chunky monkey can be used to add deep bass. Recommended for monophonic sounds. Octaver adds bass one and two octaves down. Cutoff transitions between dry and wet. Resonance switches between using octave 1 and 2. _Note: This effect is best applied only on the mid channel (left and right can easily go out of phase resulting in cluttered stereo image)._|
+| Pitch | Octaver (Up)       | This filter can be used to add some higher harmonics. Recommended for monophonic sounds only. Cutoff transitions between dry and wet, while resonance switches between using octave 1 and octave 2. |
+| Pitch | Vibrato            | Simple vibrato effect. |
+| Pitch | Spin               | Emulation of a spinning sound source. |
+|||
+| Verb  | Metallic diffuser  | Allpass-based reverb. Resonance around 0.5 is typically reverb level. Higher resonances lead to stranger soundscapes, with a sudden behavior shift around 0.9. Cutoff increases internal delays. Low cutoffs lead to metallic sounds. High cutoffs to more natural delay-type sounds. |
+| Verb  | Sproing            | Basic allpass reverb which simulates a small room with little damping. |
+| Verb  | Worp               | Allpass-based reverb. Similar to the structure used in the older reverbs often used on ambient tracks. _Tip: For a lot of drama, add a *tiny* bit of LFO modulation to the cutoff (size) parameter of this one._ |
+
 
 ## Additional notes
 - _When tweaking, enable Automatic Gain Control to protect your ears from resonance issues. This rescales the volume so that the RMS value post filter is the same as the input level (meaning that you can leave the post fader at 0 dB). You can transfer the estimated gain to the post-gain fader with the outer mouse_.
