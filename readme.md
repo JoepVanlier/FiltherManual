@@ -49,7 +49,7 @@ Filther's interface can be daunting at first, as it may feel like you're looking
 
 When opening Filther for the first time, you are greeted by the following UI:
 
-![Overview](Overview.png)
+![Overview](https://raw.githubusercontent.com/JoepVanlier/FiltherManual/master/Overview.png)
 
 Filther is layed out in a few different sections. Try and locate the following sections in the image above: Waveshaper, Spectrum, Envelopes, Control Strip (with Master, Filter A, Filter B, Routing, Dynamics, LFO, Feedback, Inputs/Dynamics Section).
 
