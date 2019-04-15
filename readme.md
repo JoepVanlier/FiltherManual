@@ -14,7 +14,7 @@ Filter attribution:
 
 Special thanks also goes out to everyone who has reported bugs and provided ideas to me. This list includes, but it is not limited to:
 Eliseat, Bri1, FoxAsteria, EpicSounds, TonE, daxliniere, JamesPeters, kneipp123, 
-jrengmusic, mawi, vdubreeze, Sju, nitsuj and of course my wife!
+jrengmusic, mawi, vdubreeze, Sju, nitsuj, Steve K, Spkka, Kom and of course my wife!
 
 And of course Cockos Inc. for developing JSFX.
 
